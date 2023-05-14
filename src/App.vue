@@ -1,23 +1,24 @@
 <template>
-  <div>
-    <router-view name='Main'></router-view>
-    <button @click='toTest'>Test</button>
-  </div>
+  <el-container>
+    <el-aside>
+      <router-view name="Aside"></router-view>
+    </el-aside>
+    <el-main>
+      <router-view name='Main'></router-view>
+      
+    </el-main>
+    
+    
+  </el-container>
 </template>
 
 <script>
-import {useRouter} from 'vue-router'
+
 
 export default {
   name: 'App',
   setup(){
-    const myrouter=useRouter()
-    function toTest(){
-      myrouter.push('/test')
-    }
-    return {
-      toTest,
-    }
+    
   }
 }
 </script>

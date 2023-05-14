@@ -1,6 +1,7 @@
 import { createRouter,createWebHistory } from "vue-router";
 import HelloWorld from '@/components/HelloWorld.vue'
 import TestComponent from '@/components/TestComponent.vue'
+import AsideNav from '@/components/AsideNav.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -14,6 +15,7 @@ const router = createRouter({
             name:'Main',
             components: {
                 'Main':HelloWorld,
+                'Aside':AsideNav,
             }
         },
         {
