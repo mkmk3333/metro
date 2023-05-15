@@ -8,21 +8,16 @@
   <button @click="changeJ">changeJ</button>
   <button @click="changeP">changeP</button>
   </el-main>
-    <el-footer>
-      <button @click='toMain'>Main</button>
-    </el-footer>
 </el-container>
 
 </template>
 
 <script>
 import {ref,reactive} from 'vue'
-import { useRouter } from 'vue-router'
 export default {
     "name":"TestComponent",
     setup(){
         const i=ref("0")
-        const myrouter=useRouter()
         const person=reactive({
             "name":"111"
         })
@@ -45,9 +40,6 @@ export default {
         function changeP(){
             person.value["name"]="zrc"
         }
-        function toMain(){
-            myrouter.push('/main')
-        }
         return{
             changeI,
             changeJ,
@@ -55,7 +47,6 @@ export default {
             person,
             i,
             j,
-            toMain
         }
     }
 }

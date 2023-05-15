@@ -26,22 +26,16 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
-    <button @click='toTest'>Test</button>
+    <img src="@/assets/transfer.png">
   </div>
 </template>
 
 <script>
-import {useRouter} from 'vue-router'
+
 export default {
   name: 'HelloWorld',
   setup(){
-    const myrouter=useRouter()
-    function toTest(){
-      myrouter.push('/test')
-    }
-    return {
-      toTest,
-    }
+
   }
 }
 </script>
