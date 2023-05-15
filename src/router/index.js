@@ -31,7 +31,6 @@ const router = createRouter({
             name:'Map',
             components:{
                 'Main':MetroGraph,
-                "Aside":AsideNav,
             }
         }
     ]

@@ -12,7 +12,6 @@
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
     "element-plus": "^2.3.4",
-    "svg-pan-zoom": "^3.6.1",
     "vue": "^3.2.13",
     "vue-router": "^4.1.6"
   },

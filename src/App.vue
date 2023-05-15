@@ -1,11 +1,11 @@
 <template>
 	<el-container>
 		<el-container>
-			<el-aside>
+			<!-- <el-aside>
 				<el-affix>
 					<router-view name="Aside"></router-view>
 				</el-affix>
-			</el-aside>
+			</el-aside> -->
 			<el-main>
 				<router-view name='Main'></router-view>
 			</el-main>
