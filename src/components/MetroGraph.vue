@@ -9,16 +9,17 @@
       id="svg_map"
       :src="url"
       @mousedown="move($event,mysvg)" 
-      @mousewheel="scale($event)"
+      @mousewheel.prevent="scale($event)"
       
       draggable="false"
       >
+      
     </el-main>
     <el-footer>
-      {{ flag }}
+      <span v-for="tag in tags" :key="tag" @click="handleClick(tag)">
+        {{ tag }}
+      </span>
     </el-footer>
-    <!-- <img src="@/assets/test.svg"> -->
-
   </el-container>
 </template>
 <script>
@@ -29,10 +30,13 @@ export default {
     const url = require("@/assets/metro2.svg")
     const mysvg="mysvg"//传参需要
     const flag = ref("none")
+    // const tags
     let ratio=1
     onMounted(()=>{
       const target=document.getElementById("svg_map")
       ratio=target.offsetHeight/target.offsetWidth
+      target.style.left='0px'
+      target.style.top='0px'
     })
     function drag_down() {
       flag.value = "down"
@@ -49,7 +53,7 @@ export default {
     function move(event, s){
       flag.value = "down"
       if (s) {   // 需要拖拽的元素传true
-        console.log(event)
+        // console.log(event)
         let child = event.target;        // 获得触发事件的子元素
         // let parent=document.getElementById("svg_parent")// 装载svg的父元素
         // let style = window.getComputedStyle(parent, null)
@@ -60,22 +64,24 @@ export default {
         // let disY = event.clientY - child.offsetTop;
         let X = event.clientX
         let Y = event.clientY
-        let childX = child.style.left.substring()
-        let childY = child.style.top
-        // console.log("parent:",parent)
-        console.log("child:",child)
-        // console.log("parent left,top:",parent.offsetLeft,parent.offsetTop)
-        console.log("mouse left,top:",event.clientX,event.clientY)
-        console.log("child left,top:",childX,childY)
-        // console.log("padding left,top:",paddingLeft,paddingTop)
-        // console.log("relative:",disX,disY)
-        console.log(typeof X,typeof childX)
+        // console.log("style",child.style.left,child.style.top)
+        let childX = removePX(child.style.left)
+        let childY = removePX(child.style.top)
+        // // console.log("parent:",parent)
+        // console.log("child:",child)
+        // // console.log("parent left,top:",parent.offsetLeft,parent.offsetTop)
+        // console.log("mouse left,top:",event.clientX,event.clientY)
+        // console.log("child left,top:",childX,childY)
+        // // console.log("padding left,top:",paddingLeft,paddingTop)
+        // // console.log("relative:",disX,disY)
+        // console.log(typeof X,typeof childX)
+        // console.log("remove:",typeof(removePX("0px")))
         document.onmousemove = (e) => {       // 鼠标按下并移动
           // let left = e.clientX - disX - parent.offsetLeft - paddingLeft;// style中的left值
           // let top = e.clientY - disY - parent.offsetTop - paddingTop;// style中的top值
           let deltaX = e.clientX - X + childX
           let deltaY = e.clientY - Y + childY
-          console.log(deltaX,deltaY)
+          // console.log(deltaX,deltaY)
           
           // 移动当前元素
           child.style.left = deltaX  + 'px';
@@ -101,6 +107,12 @@ export default {
         target.style.width=(width-50*level)+'px'
       }
     }
+    function removePX(s){
+      if(typeof(s)!='string')return
+      let tmpIndex=s.lastIndexOf('p')
+      let ans=parseInt(s.substring(0,tmpIndex))
+      return ans
+    }
     return {
       url,
       flag,
@@ -124,5 +136,8 @@ export default {
   -ms-user-select: none; 
   user-select: none; */
   position: relative;
+}
+#svg_parent{
+  height:550px;
 }
 </style>

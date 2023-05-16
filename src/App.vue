@@ -1,5 +1,5 @@
 <template>
-	<el-container>
+	<el-container class="outer">
 		<el-container>
 			<!-- <el-aside>
 				<el-affix>
@@ -11,9 +11,11 @@
 			</el-main>
 		</el-container>
 		<el-footer >
-			<button @click="toMap">Map</button>
-			<button @click="toTest">Test</button>
-			<button @click="toMain">Main</button>
+			<el-affix>
+				<button @click="toMap">Map</button>
+				<button @click="toTest">Test</button>
+				<button @click="toMain">Main</button>
+			</el-affix>
 		</el-footer>
 
 	</el-container>
@@ -54,5 +56,7 @@ export default {
 	color: #2c3e50;
 	margin-top: 60px;
 }
-
+.outer{
+	height:640px;
+}
 </style>
