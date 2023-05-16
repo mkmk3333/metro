@@ -35,3 +35,4 @@ svg中使用https获取.png会有跨域请求问题，无法显示<br/>
 采用base64编码后插入svg显示<br/>
 
 ljj test
+ljj 5.16 test
