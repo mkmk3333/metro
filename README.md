@@ -45,6 +45,6 @@ child.style.left获取的是left属性值，为xxx px，为字符串类型<br/>
 .prevent阻止默认事件（滚轮滚动页面）改为缩放<br/>
 
 ### version
-v0.1.1~v0.1.6   前期版本，创建AsideNav，HelloWorld，TestComponent，TitleLogo组件
-v0.1.7~v0.1.12  创建MetroGraph组件，使用img引入地铁图svg，v0.1.12完成img对应的拖拽缩放功能
+v0.1.1-v0.1.6   前期版本，创建AsideNav，HelloWorld，TestComponent，TitleLogo组件
+v0.1.7-v0.1.12  创建MetroGraph组件，使用img引入地铁图svg，v0.1.12完成img对应的拖拽缩放功能
 v0.1.13         创建SVGMap组件，使用内联方式嵌入svg，完成对应的拖拽缩放功能
