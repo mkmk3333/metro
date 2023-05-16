@@ -35,6 +35,7 @@ export default {
 		function toTest() {
 			myrouter.push('/test')
 		}
+		
 		return {
 			toMap,
 			toMain,

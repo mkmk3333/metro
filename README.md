@@ -33,3 +33,7 @@ git pull --allow-unrelated-histories origin/zrc
 svg:来源于北京地铁官网<br/>
 svg中使用https获取.png会有跨域请求问题，无法显示<br/>
 采用base64编码后插入svg显示<br/>
+
+DOM对象样式智能改变一次<br/>
+child.style.left获取的是left属性值，为xxx px，为字符串类型<br/>
+需对child.style.left进行处理<br/>

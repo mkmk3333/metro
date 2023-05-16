@@ -46,33 +46,43 @@ export default {
       flag.value = "click"
       console.log("up")
     } 
-    function move(e, s){
+    function move(event, s){
       flag.value = "down"
       if (s) {   // 需要拖拽的元素传true
-        let child = e.target;        // 获得触发事件的子元素
-        let parent=document.getElementById("svg_parent")// 装载svg的父元素
-        let style = window.getComputedStyle(parent, null)
-        let paddingLeft=parseFloat(style.getPropertyValue('padding-left'))
-        let paddingTop=parseFloat(style.getPropertyValue('padding-top'))// 获得padding信息
-        // console.log("parent:",parent)
-        // console.log("child:",child)
-        // console.log("parent left,top:",parent.offsetLeft,parent.offsetTop)
-        // console.log("child left,top:",child.offsetLeft,child.offsetTop)
-        // console.log("mouse left,top:",e.clientX,e.clientY)
-        // console.log("padding left,top:",paddingLeft,paddingTop)
+        console.log(event)
+        let child = event.target;        // 获得触发事件的子元素
+        // let parent=document.getElementById("svg_parent")// 装载svg的父元素
+        // let style = window.getComputedStyle(parent, null)
+        // let paddingLeft=parseFloat(style.getPropertyValue('padding-left'))
+        // let paddingTop=parseFloat(style.getPropertyValue('padding-top'))// 获得padding信息
         //算出鼠标相对svg的位置
-        let disX = e.clientX - child.offsetLeft;
-        let disY = e.clientY - child.offsetTop;
+        // let disX = event.clientX - child.offsetLeft;
+        // let disY = event.clientY - child.offsetTop;
+        let X = event.clientX
+        let Y = event.clientY
+        let childX = child.style.left.substring()
+        let childY = child.style.top
+        // console.log("parent:",parent)
+        console.log("child:",child)
+        // console.log("parent left,top:",parent.offsetLeft,parent.offsetTop)
+        console.log("mouse left,top:",event.clientX,event.clientY)
+        console.log("child left,top:",childX,childY)
+        // console.log("padding left,top:",paddingLeft,paddingTop)
         // console.log("relative:",disX,disY)
+        console.log(typeof X,typeof childX)
         document.onmousemove = (e) => {       // 鼠标按下并移动
-          let left = e.clientX - disX - parent.offsetLeft - paddingLeft;// style中的left值
-          let top = e.clientY - disY - parent.offsetTop - paddingTop;// style中的top值
-          // console.log(left,top)
+          // let left = e.clientX - disX - parent.offsetLeft - paddingLeft;// style中的left值
+          // let top = e.clientY - disY - parent.offsetTop - paddingTop;// style中的top值
+          let deltaX = e.clientX - X + childX
+          let deltaY = e.clientY - Y + childY
+          console.log(deltaX,deltaY)
+          
           // 移动当前元素
-          child.style.left = left + 'px';
-          child.style.top = top + 'px';
+          child.style.left = deltaX  + 'px';
+          child.style.top = deltaY  + 'px';
         };
-        document.onmouseup = () => {
+        document.onmouseup = (e) => {
+          console.log("mouse left,top:",e.clientX,e.clientY)
           document.onmousemove = null;
           document.onmouseup = null;
         };
