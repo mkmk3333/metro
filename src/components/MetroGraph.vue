@@ -4,22 +4,20 @@
       style="overflow-y: hidden;overflow-x: hidden;" 
       id="svg_parent"
       >
-      <img 
-      :class="mysvg"
-      id="svg_map"
-      :src="url"
-      @mousedown="move($event,mysvg)" 
-      @mousewheel.prevent="scale($event)"
-      
-      draggable="false"
-      >
-      
-    </el-main>
-    <el-footer>
-      <span v-for="tag in tags" :key="tag" @click="handleClick(tag)">
-        {{ tag }}
+      <span v-for="tag in tags" :key="tag" @click="handleClick($event)">
+        <svg 
+        :class="mysvg"
+        id="svg_map"
+        @mousedown="move($event,mysvg)" 
+        @mousewheel.prevent="scale($event)"
+        xmlns="http://www.w3.org/2000/svg" 
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        draggable="false"
+        >
+          <use :xlink:href="url"/>
+        </svg>
       </span>
-    </el-footer>
+    </el-main>
   </el-container>
 </template>
 <script>
@@ -30,8 +28,8 @@ export default {
     const url = require("@/assets/metro2.svg")
     const mysvg="mysvg"//传参需要
     const flag = ref("none")
-    // const tags
-    let ratio=1
+    const tags = ref(['image','circle'])
+    let ratio = 1
     onMounted(()=>{
       const target=document.getElementById("svg_map")
       ratio=target.offsetHeight/target.offsetWidth
@@ -87,8 +85,8 @@ export default {
           child.style.left = deltaX  + 'px';
           child.style.top = deltaY  + 'px';
         };
-        document.onmouseup = (e) => {
-          console.log("mouse left,top:",e.clientX,e.clientY)
+        document.onmouseup = () => {
+          // console.log("mouse left,top:",e.clientX,e.clientY)
           document.onmousemove = null;
           document.onmouseup = null;
         };
@@ -113,6 +111,10 @@ export default {
       let ans=parseInt(s.substring(0,tmpIndex))
       return ans
     }
+    function handleClick(event){
+      console.log("1")
+      console.log(event.target)
+    }
     return {
       url,
       flag,
@@ -122,6 +124,8 @@ export default {
       mysvg,
       move,
       scale,
+      tags,
+      handleClick,
     }
   }
 }
