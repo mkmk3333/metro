@@ -46,10 +46,15 @@ child.style.left获取的是left属性值，为xxx px，为字符串类型<br/>
 
 prevent阻止默认事件（滚轮滚动页面）改为缩放<br/>
 
+尝试使用css动画，失败（animation未能正确触发,可能是浏览器不支持css3参数attr()）<br/>
+
+14号线西铁营至东管头段未给出站点间据与站点信息，故不参与计算<br/>
+
 ### version
 | version         | description                                                                 |
 | :-------------- | :------------------------------------------------------------------------- |
 | v0.1.1-v0.1.6   | 前期版本，创建AsideNav，HelloWorld，TestComponent，TitleLogo组件            |      
 | v0.1.7-v0.1.12  | 创建MetroGraph组件，使用img引入地铁图svg，v0.1.12完成img对应的拖拽缩放功能    |
 | v0.1.13         | 创建SVGMap组件，使用内联方式嵌入svg，完成对应的拖拽缩放功能                   |
+| v0.1.14         | 创建SearchDiv组件，添加首页站点搜索栏，更新svg，调试前后端交互，建立后端数据库 |
 

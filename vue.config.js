@@ -16,7 +16,7 @@ module.exports = defineConfig({
         ws: true,  
         changeOrigin: true,  
         pathRewrite: {
-          '^/api': ''  //正则表达式  匹配/api，替换为空。
+          '^/api': '/'  //正则表达式  匹配/api，替换为空。
         },
       }
     }

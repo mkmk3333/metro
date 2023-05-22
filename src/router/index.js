@@ -3,6 +3,8 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import TestComponent from '@/components/TestComponent.vue'
 import AsideNav from '@/components/AsideNav.vue'
 import MetroGraph from '@/components/MetroGraph.vue'
+import HeadNav from '@/components/HeadNav.vue'
+import SearchDiv from '@/components/SearchDiv.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -15,14 +17,17 @@ const router = createRouter({
             path:'/main',
             name:'Main',
             components: {
+                'Head':HeadNav,
                 'Main':HelloWorld,
                 'Aside':AsideNav,
+                
             }
         },
         {
             path:'/test',
             name:'Test',
             components:{
+                'Head':HeadNav,
                 'Main':TestComponent,
             }
         },
@@ -30,7 +35,10 @@ const router = createRouter({
             path:'/map',
             name:'Map',
             components:{
+                'Head':HeadNav,
                 'Main':MetroGraph,
+                'Aside':AsideNav,
+                'Search':SearchDiv,
             }
         }
     ]

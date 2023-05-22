@@ -1,23 +1,25 @@
 <template>
-	<el-container class="outer">
-		<el-container>
-			<!-- <el-aside>
-				<el-affix>
-					<router-view name="Aside"></router-view>
-				</el-affix>
-			</el-aside> -->
-			<el-main>
-				<router-view name='Main'></router-view>
-			</el-main>
-		</el-container>
-		<el-footer >
-			<el-affix>
+	<el-container id="App">
+		<el-header id="App-Head">
+			<router-view name="Head"></router-view>
+		</el-header>
+		
+		<el-main  id="App-Main" draggable="false">
+			<router-view name='Main'></router-view>
+		</el-main>
+		<el-footer id="App-Footer">
+			<div id="Footer">
 				<button @click="toMap">Map</button>
 				<button @click="toTest">Test</button>
 				<button @click="toMain">Main</button>
-			</el-affix>
+			</div>
 		</el-footer>
-
+		<el-container id="App-Aside" draggable="false">
+			<router-view name="Aside"></router-view>
+		</el-container>
+		<el-container id="App-Search">
+			<router-view name="Search"></router-view>
+		</el-container>
 	</el-container>
 </template>
 
@@ -54,9 +56,53 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-	margin-top: 60px;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
 }
-.outer{
-	height:640px;
+#App-Aside{
+	position: absolute;
+	left:10px;
+	top:100px;
+	z-index:1;
+}
+#App-Search{
+	position: absolute;
+	width: 300px;
+	height: 200px;
+	right: 50px;
+	top: 150px;
+	z-index: 1;
+}
+#App-Main{
+	height: auto;
+	width: 100%;
+	padding: 0 20px 0 20px;
+	z-index: 0;
+	overflow: hidden;
+} 
+#App-Head{
+	height: auto;
+	z-index: 0;
+}
+#App-Footer{
+	height:30px;
+}
+html{
+    height: 98%;
+	margin: 8px;
+	overflow: hidden;
+}
+body{
+	height: 100%;
+	margin:auto;
+}
+#App{
+	height: 100%;
+}
+
+#Footer{
+	background-color: rgb(84, 92, 100);
+	height: 100%;
 }
 </style>

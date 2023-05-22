@@ -12,6 +12,8 @@ app.use(ElementPlus)
 for (let i in Icons) {
     app.component(i, Icons[i])
 }
+
 app.config.globalProperties.$axios = axios
 axios.defaults.baseURL = '/api'
+
 app.mount('#app')

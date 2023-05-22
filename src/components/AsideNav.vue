@@ -1,4 +1,5 @@
 <template>
+	<el-affix>
 	<el-container>
 		<el-main>
 			<el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen()"
@@ -45,6 +46,7 @@
 		</el-main>
 
 	</el-container>
+	</el-affix>
 </template>
     
 <script>
