@@ -6,7 +6,7 @@
                     <el-row class="input-row">
                         <el-input 
                         size="small" 
-                        :model-value="startStation" 
+                        :model-value="start" 
                         @input="inputStart($event)"
                         placeholder="Please input"
                         >
@@ -17,12 +17,16 @@
                     <el-row class="input-row">
                         <el-input 
                         size="small" 
-                        :model-value="endStation" 
+                        :model-value="end" 
                         @input="inputEnd($event)"
                         placeholder="Please input"
-                        suffix-icon="Search"
                         >
                             <template #prepend>终点站：</template>
+                            <template #append>
+                                <el-button @click="navagation()">
+                                    <el-icon><Search/></el-icon>
+                                </el-button>
+                            </template>
                         </el-input>
                     </el-row>
                 </el-col>
@@ -43,7 +47,7 @@
                     <el-row style="padding: 5px 20px 0px 20px;">
                         <el-input 
                         size="small" 
-                        :model-value="searchStation" 
+                        :model-value="search" 
                         @input="inputSearch($event)"
                         placeholder="Please input"
                         suffix-icon="Search"
@@ -58,36 +62,66 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-
+import { getCurrentInstance, ref } from 'vue'
 export default {
     name: "SearchDiv",
     setup() {
-        const startStation = ref('')
-        const endStation = ref('')
-        const searchStation = ref('')
+        const start = ref('')
+        const end = ref('')
+        const search = ref('')
+        const {proxy} = getCurrentInstance()
+        const url='/map/navagation'
         function swap() {
-            let tmp = startStation.value
-            startStation.value = endStation.value
-            endStation.value = tmp
+            let tmp = start.value
+            start.value = end.value
+            end.value = tmp
         }
         function inputStart(event) {
-            startStation.value = event
+            start.value = event
         }
         function inputEnd(event) {
-            endStation.value = event
+            end.value = event
+            console.log(end.value)
         }
         function inputSearch(event) {
-            searchStation.value = event
+            search.value = event
+        }
+        function navagation(){
+            proxy.$axios.get(url,{
+                params:{
+                    startStation:start.value,
+                    endStation:end.value,
+                },
+            }).then((res)=>{
+                console.log(res.data.data)
+                let string=""
+                for(const str of res.data.data.stationSVG){
+                    string+=','
+                    string+=str
+                }
+                for(const str of res.data.data.pathSVG){
+                    string+=','
+                    string+=str
+                }
+                const svgs=document.querySelectorAll(`line[id^="Svgjs"],path[id^="Svgjs"],text[id^="Svgjs"],image[id^="Svgjs"],circle[id^="Svgjs"],rect[id^="Svgjs"]`)
+                for(const target of svgs){
+                    if(!string.includes(target.getAttribute("id"))){
+                        target.style.opacity=0.15
+                    }
+                }
+            }).catch((err)=>{
+                console.log(err.message)
+            })
         }
         return {
-            startStation,
-            endStation,
-            searchStation,
+            start,
+            end,
+            search,
             swap,
             inputStart,
             inputEnd,
             inputSearch,
+            navagation,
         }
     }
 }

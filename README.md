@@ -40,7 +40,7 @@ svg:来源于北京地铁官网<br/>
 svg中使用https获取.png会有跨域请求问题，无法显示<br/>
 采用base64编码后插入svg显示<br/>
 
-DOM对象样式只能改变一次<br/>
+DOM对象样式只能改变一次，通过向元素添加类名和调用类名选择器来进行css样式修改<br/>
 child.style.left获取的是left属性值，为xxx px，为字符串类型<br/>
 需对child.style.left进行处理<br/>
 
@@ -53,6 +53,12 @@ prevent阻止默认事件（滚轮滚动页面）改为缩放<br/>
 丽泽商务区站各个官网数据与地图存在差异，地图显示非换乘站，数据显示换乘站，按换乘站处理    p.s.高德地图显示为换乘站<br/>
 
 使用dijkstra算法开始时需push起点与其所有换乘站<br/>
+
+木樨地站应为换乘站<br/>
+
+苏州街站应为换乘站<br/>
+
+后端存储svg组件名时，组件大于8个将会超过储存上限，修改Column：SVGid的类型为varchar(255),text,longtext,longblob均超过上限。对于组件数较多的西郊线与亦庄T1线，程序只存储线路外部红色区域<br/>
 
 
 ### version
