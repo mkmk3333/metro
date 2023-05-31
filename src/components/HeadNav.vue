@@ -84,7 +84,8 @@
                 <el-descriptions-item label="Username: ">{{ info.username }}</el-descriptions-item>
                 <el-descriptions-item label="State: ">{{ info.deleted }}</el-descriptions-item>
             </el-descriptions>
-
+            <h1>User History</h1>
+            <p v-for="h in historys" :key="h">{{ h }}</p>
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="infoVisible = false">
@@ -107,13 +108,15 @@ export default {
         const myrouter = useRouter()
         const loginVisible = ref(false)
         const registerVisible = ref(false)
-        const infoVisible=ref(false)
+        const infoVisible = ref(false)
         const formLabelWidth = '140px'
         const username = ref("")
         const { proxy } = getCurrentInstance()
         const url_login = "/user/login"
         const url_register = "/user/register"
         const url_info = '/user/name'
+        const url_history = '/user/history/get'
+        const historys=ref([])
 
         const form_login = reactive({
             username: '',
@@ -147,6 +150,13 @@ export default {
             })
                 .then((res) => {
                     proxy.emitter.emit("userLogin", res.data.data)
+                    if (res.data.data == null) {
+                        ElMessage({
+                            message: res.data.message,
+                            type: 'error',
+                        })
+                        return
+                    }
                     username.value = res.data.data.username
                     const target = document.getElementById("user")
                     target.style.visibility = 'visible'
@@ -198,16 +208,33 @@ export default {
                 params: {
                     name: username.value
                 }
+            }).then((res) => {
+                info.username = res.data.username
+                if (!res.data.deleted) {
+                    info.deleted = 'not deleted'
+                }
+                else {
+                    info.deleted = 'deleted'
+                }
+                infoVisible.value = true
+            }).catch((err) => {
+                ElMessage({
+                    message: err.message,
+                    type: 'error',
+                })
+            })
+            historys.value.length=0
+            proxy.$axios.get(url_history,{
+                params:{
+                    name:username.value,
+                }
             }).then((res)=>{
                 console.log(res)
-                info.username=res.data.username
-                if(!res.data.deleted){
-                    info.deleted='not deleted'
+                for(const i of res.data.data){
+                    console.log(i)
+                    const str="起点:"+i["end"]+"\t终点:"+i["start"]
+                    historys.value.push(str)
                 }
-                else{
-                    info.deleted='deleted'
-                }
-                infoVisible.value=true
             }).catch((err)=>{
                 ElMessage({
                     message: err.message,
@@ -231,6 +258,7 @@ export default {
             change,
             info,
             showInfo,
+            historys,
         }
     }
 }

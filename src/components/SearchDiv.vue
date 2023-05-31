@@ -74,6 +74,7 @@ export default {
         const start = ref('')
         const end = ref('')
         const search = ref('')
+        let username = ''
         const {proxy} = getCurrentInstance()
         const url='/map/navagation'
         const url_get_station = '/station/name'
@@ -83,6 +84,10 @@ export default {
             proxy.emitter.on("selectMode",(m)=>{
                 mode=m
                 navagation()
+            })
+            proxy.emitter.on("userLogin",(user)=>{
+                console.log("@!:",user)
+                username=user.username
             })
         })
 
@@ -123,6 +128,7 @@ export default {
                     startStation:end.value,
                     endStation:start.value,
                     mode:mode,
+                    username:username,
                 },
             }).then((res)=>{
                 proxy.emitter.emit("showPath",res.data.data)

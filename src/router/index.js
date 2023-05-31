@@ -1,6 +1,4 @@
 import { createRouter,createWebHistory } from "vue-router";
-import HelloWorld from '@/components/HelloWorld.vue'
-import TestComponent from '@/components/TestComponent.vue'
 import AsideNav from '@/components/AsideNav.vue'
 import MetroGraph from '@/components/MetroGraph.vue'
 import HeadNav from '@/components/HeadNav.vue'
@@ -18,29 +16,12 @@ const router = createRouter({
             name:'Main',
             components: {
                 'Head':HeadNav,
-                'Main':HelloWorld,
-                'Aside':AsideNav,
-                
-            }
-        },
-        {
-            path:'/test',
-            name:'Test',
-            components:{
-                'Head':HeadNav,
-                'Main':TestComponent,
-            }
-        },
-        {
-            path:'/map',
-            name:'Map',
-            components:{
-                'Head':HeadNav,
                 'Main':MetroGraph,
                 'Aside':AsideNav,
                 'Search':SearchDiv,
+                
             }
-        }
+        },
     ]
 }
 )

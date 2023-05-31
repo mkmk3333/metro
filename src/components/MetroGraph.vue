@@ -85,7 +85,7 @@ export default {
           icon.style.top = y + 'px'
           //console.log("ok", icon.style.left)
           changeVisibility("visible")
-
+ 
           console.log(target.getAttribute("sdata"))
           proxy.$axios
             .get(url_get_station, {
