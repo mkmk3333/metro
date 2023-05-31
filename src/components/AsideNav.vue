@@ -40,6 +40,7 @@
 						<div id="pathContent">
 							<p>乘车时间：{{ time }}分钟</p>
 							<p>总里程：{{ mileage/1000 }}公里</p>
+							<p>票价：{{ ticket }}元</p>
 							<p>路线：</p>
 							<p v-for="p in path" :key="p">
 								{{ p }}
@@ -71,6 +72,7 @@ export default {
 		const transfer = ref("")
 		const time = ref(0)
 		const mileage = ref(0)
+		const ticket = ref(0)
 		const mode = ref(false)
 		const { proxy } = getCurrentInstance()
 		const path_disabled = ref(true)
@@ -103,6 +105,7 @@ export default {
 				path.value.length=0
 				time.value = data.time
 				mileage.value = data.mileage
+				ticket.value = data.ticket
 				info_disabled.value = true
 				path_disabled.value = false
 				let line=data.path[0].y
@@ -152,6 +155,7 @@ export default {
 			mode,
 			changeMode,
 			path,
+			ticket,
 		}
 	}
 }

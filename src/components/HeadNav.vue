@@ -30,7 +30,7 @@
                     <el-input v-model="form_login.username" autocomplete="off" />
                 </el-form-item>
                 <el-form-item label="密码" :label-width="formLabelWidth">
-                    <el-input v-model="form_login.password" autocomplete="off" />
+                    <el-input type="password" v-model="form_login.password" autocomplete="off" />
                 </el-form-item>
             </el-form>
 
@@ -58,7 +58,7 @@
                     <el-input v-model="form_register.username" autocomplete="off" />
                 </el-form-item>
                 <el-form-item label="密码" :label-width="formLabelWidth">
-                    <el-input v-model="form_register.password" autocomplete="off" />
+                    <el-input type="password" v-model="form_register.password" autocomplete="off" />
                 </el-form-item>
             </el-form>
 
@@ -134,10 +134,12 @@ export default {
         })
 
         function toNav() {
-            myrouter.push('/map')
+            myrouter.push('/main')
         }
 
         function toLog() {
+            form_login.password=''
+            form_login.username=''
             loginVisible.value = true
         }
 
@@ -193,6 +195,8 @@ export default {
                 })
         }
         function change() {
+            form_register.password=''
+            form_register.username=''
             loginVisible.value = false
             registerVisible.value = true
         }

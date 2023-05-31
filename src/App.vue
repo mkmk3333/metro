@@ -9,9 +9,7 @@
 		</el-main>
 		<el-footer id="App-Footer">
 			<div id="Footer">
-				<button @click="toMap">Map</button>
-				<button @click="toTest">Test</button>
-				<button @click="toMain">Main</button>
+				
 			</div>
 		</el-footer>
 		<el-container id="App-Aside" draggable="false">
