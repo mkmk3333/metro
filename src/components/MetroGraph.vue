@@ -70,19 +70,20 @@ export default {
 
     function select(event) {
       changeVisibility("hidden")
-     
+      
       if (!dragFlag) {
         removeOpacity()
+        proxy.emitter.emit("closeStationInfo")
         const target = event.target
-        const svg_target = document.getElementById("svg_map")
-        if (target.localName == 'image' || target.localName == 'circle') {
-          console.log(event.target, svg_target.localName)
+        //const svg_target = document.getElementById("svg_map")
+        if ((target.localName == 'image' || target.localName == 'circle') && target.id!="SvgjsImage1015" && target.id!="SvgjsImage1014" && target.id!="SvgjsImage1011" && target.id!="SvgjsImage1013" ) {
+          //console.log(event.target, svg_target.localName)
           const icon = document.getElementById("location")
           let x = event.clientX - 15
           let y = event.clientY - 30
           icon.style.left = x + 'px'
           icon.style.top = y + 'px'
-          console.log("ok", icon.style.left)
+          //console.log("ok", icon.style.left)
           changeVisibility("visible")
 
           console.log(target.getAttribute("sdata"))
@@ -93,6 +94,7 @@ export default {
               }
             })
             .then((res) => {
+              proxy.emitter.emit("selectStation",res.data)
               console.log(res.data)
 
             })
@@ -133,6 +135,7 @@ export default {
 
     function scale(e) {
       changeVisibility("hidden")
+
       let level = e.deltaY / 125// 触发滚动次数
       scale_level -= level * 0.05
       scale_level = scale_level.toFixed(2)

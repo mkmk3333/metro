@@ -20,6 +20,9 @@
 		<el-container id="App-Search">
 			<router-view name="Search"></router-view>
 		</el-container>
+		<el-container>
+			<router-view name="Flow"></router-view>
+		</el-container>
 	</el-container>
 </template>
 
@@ -62,8 +65,9 @@ export default {
 }
 #App-Aside{
 	position: absolute;
-	left:10px;
-	top:100px;
+	overflow: hidden;
+	left:28px;
+	top:150px;
 	z-index:1;
 }
 #App-Search{
@@ -83,7 +87,7 @@ export default {
 } 
 #App-Head{
 	height: auto;
-	z-index: 0;
+
 }
 #App-Footer{
 	height:30px;

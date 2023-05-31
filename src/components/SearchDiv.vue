@@ -38,6 +38,7 @@
                             </el-icon>
                         </div>
                     </el-row>
+                    
                 </el-col>
             </el-row>
         </el-header>
@@ -50,9 +51,13 @@
                         :model-value="search" 
                         @input="inputSearch($event)"
                         placeholder="Please input"
-                        suffix-icon="Search"
                         >
                             <template #prepend>搜索站点：</template>
+                            <template #append>
+                                <el-button @click="Search()">
+                                    <el-icon><Search/></el-icon>
+                                </el-button>
+                            </template>
                         </el-input>
                     </el-row>
                 </div>
@@ -62,7 +67,7 @@
 </template>
 
 <script>
-import { getCurrentInstance, ref } from 'vue'
+import { getCurrentInstance, ref, onMounted } from 'vue'
 export default {
     name: "SearchDiv",
     setup() {
@@ -71,6 +76,16 @@ export default {
         const search = ref('')
         const {proxy} = getCurrentInstance()
         const url='/map/navagation'
+        const url_get_station = '/station/name'
+        let mode="distance"
+
+        onMounted(()=>{
+            proxy.emitter.on("selectMode",(m)=>{
+                mode=m
+                navagation()
+            })
+        })
+
         function swap() {
             let tmp = start.value
             start.value = end.value
@@ -81,19 +96,36 @@ export default {
         }
         function inputEnd(event) {
             end.value = event
-            console.log(end.value)
         }
         function inputSearch(event) {
             search.value = event
         }
+        function Search(){
+            proxy.$axios.get(url_get_station,{
+                params: {
+                    name: search.value
+                }
+            })
+            .then((res)=>{
+                proxy.emitter.emit("selectStation",res.data)
+            }).catch((err)=>{
+                console.log(err.message)
+            })
+        }
         function navagation(){
+            const svgs=document.querySelectorAll(`line[id^="Svgjs"],path[id^="Svgjs"],text[id^="Svgjs"],image[id^="Svgjs"],circle[id^="Svgjs"],rect[id^="Svgjs"]`)
+            for(const target of svgs){
+                target.style.opacity=1
+            }
+            
             proxy.$axios.get(url,{
                 params:{
-                    startStation:start.value,
-                    endStation:end.value,
+                    startStation:end.value,
+                    endStation:start.value,
+                    mode:mode,
                 },
             }).then((res)=>{
-                console.log(res.data.data)
+                proxy.emitter.emit("showPath",res.data.data)
                 let string=""
                 for(const str of res.data.data.stationSVG){
                     string+=','
@@ -122,6 +154,7 @@ export default {
             inputEnd,
             inputSearch,
             navagation,
+            Search,
         }
     }
 }
