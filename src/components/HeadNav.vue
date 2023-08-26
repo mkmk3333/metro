@@ -236,7 +236,11 @@ export default {
                 console.log(res)
                 for(const i of res.data.data){
                     console.log(i)
-                    const str="起点:"+i["end"]+"\t终点:"+i["start"]
+                    if(i==null){
+                        historys.value.push("空")
+                        break;
+                    }
+                    const str="起点:"+i["end"]+"   终点:"+i["start"]
                     historys.value.push(str)
                 }
             }).catch((err)=>{
